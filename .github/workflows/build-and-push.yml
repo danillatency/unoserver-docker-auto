@@ -1,0 +1,20 @@
+name: Build and push
+
+on:
+  push:
+    branches: [ "main" ]
+    paths:
+      - Dockerfile
+  workflow_dispatch:
+
+jobs:
+  build-and-push-docker-image:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: build the image
+      run: docker build . --tag danillatency/unoserver-docker-auto:latest
+    - name: push the image to Docker Hub
+      run: |
+        docker login -u danillatency -p ${{ secrets.DOCKER_HUB_TOKEN }}
+        docker push danillatency/unoserver-docker-auto:latest
