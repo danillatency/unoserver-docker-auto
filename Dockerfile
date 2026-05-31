@@ -40,6 +40,9 @@ RUN apk add --no-cache \
 
 RUN rm -rf /var/cache/apk/* /tmp/*
 
+# an error with expat
+RUN apk add --no-cache --upgrade expat
+
 # https://github.com/unoconv/unoserver/
 RUN pip install --break-system-packages -U unoserver==${VERSION_UNOSERVER}
 
